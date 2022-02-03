@@ -3,14 +3,15 @@ using System.IO;
 using System.Collections.Specialized;
 using System.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using OpenQA.Selenium.DevTools.V85.Browser;
 
 namespace MyTestProject
 {
     [TestClass]
     public class UnitTest1
     {
-        private IDriver _driver;
-        
+        IDriver _driver;
+
         [TestMethod]
         public void TestMethod1()
         {
@@ -20,11 +21,14 @@ namespace MyTestProject
         [TestInitialize()]
         public void TestInitialize()
         {
-            var browserType = ConfigurationManager.AppSettings["BrowserType"];
-            var url = ConfigurationManager.AppSettings["Url"];
-            var cUrl = new Uri(url);
-            Enum.TryParse(browserType, out IDriver.Browser cBrowserType);
+            _driver = new DriverAdapter();
             _driver.Initialize();
+        }
+
+        [TestCleanup()]
+        public void TestCleanup()
+        {
+            _driver.Close();
         }
     }
 }

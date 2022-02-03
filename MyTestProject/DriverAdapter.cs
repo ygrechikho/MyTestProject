@@ -7,12 +7,11 @@ namespace MyTestProject
 {
     public class DriverAdapter : IDriver
     {
-        public IWebDriver _driver;
+        private IWebDriver _driver;
 
-        public DriverAdapter(IWebDriver driver)
+        public DriverAdapter()
         {
             Console.WriteLine(" *** Portal launched");
-            _driver = driver;
         }
 
         private void CreateDriver(IDriver.Browser browserType)
